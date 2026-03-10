@@ -516,7 +516,7 @@ function Home({ onSelect }) {
           <div className="banner-title">الجمع والطرح والضّرب</div>
           <div className="banner-title">على الأعداد ذات 6 أرقام</div>
           <div className="banner-divider"/>
-          <div className="banner-sub">مسايل حول الدرس</div>
+          <div className="banner-sub">مسائل حول الدرس</div>
           <div className="banner-teacher">المعلم خليل عنيبة 👨‍🏫</div>
         </div>
 
