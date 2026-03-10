@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-/* ─────────────────────────────────────────────
-   SHARED CONSTANTS
-───────────────────────────────────────────── */
 const C = {
   green: "#58CC02", greenDark: "#46A302", blue: "#1CB0F6",
   red: "#FF4B4B", orange: "#FF9600", purple: "#CE82FF",
@@ -12,13 +9,11 @@ const C = {
 
 const CONFETTI_COLORS = ["#FF4B4B","#58CC02","#1CB0F6","#FFC800","#CE82FF","#FF9600"];
 
-/* ─────────────────────────────────────────────
-   LESSON DATA
-───────────────────────────────────────────── */
 const SALMA_STEPS = [
   {
     id:1, type:"intro",
     title:"رحلة سلمى إلى السوق 🛒",
+    subtitle:"ساعد سلمى في حساب مشترياتها",
     story:[
       {emoji:"👩",  text:"أمّ سلمى أرسلتها إلى السوق الأسبوعية"},
       {emoji:"💵",  text:"أعطتها مبلغاً قدره 400 دينار"},
@@ -59,7 +54,7 @@ const SALMA_STEPS = [
   {
     id:5, type:"table",
     title:"جدول المشتريات 📋",
-    subtitle:"راجعي الأثمان المحسوبة",
+    subtitle:"راجع الأثمان المحسوبة",
     rows:[
       {emoji:"🥩", label:"اللحم",   qty:"3 كلغ",  unitPrice:"65,500",  total:196500},
       {emoji:"🥔", label:"البطاطا", qty:"12 كلغ", unitPrice:"2,250",   total:27000},
@@ -69,7 +64,7 @@ const SALMA_STEPS = [
   {
     id:6, type:"sum",
     title:"المبلغ الجملي 🧮",
-    question:"احسبي مجموع كل المشتريات",
+    question:"احسب مجموع كل المشتريات",
     rows:[
       {emoji:"🥩", label:"اللحم",   value:196500},
       {emoji:"🥔", label:"البطاطا", value:27000},
@@ -92,13 +87,13 @@ const SALMA_STEPS = [
   },
   { id:8, type:"finish",
     summary:[
-      "🥩 اللحم (3كغ):   196,500 م",
-      "🥔 البطاطا (12كغ): 27,000 م",
-      "🐟 السمك (4كغ):  109,380 م",
+      "🥩 اللحم (3كغ):    196,500 م",
+      "🥔 البطاطا (12كغ):  27,000 م",
+      "🐟 السمك (4كغ):   109,380 م",
       "─────────────────",
       "🛒 المجموع: 332,880 م",
       "💵 عندها: 400,000 م",
-      "✅ تبقّى: 67,120 م",
+      "✅ تبقّى:   67,120 م",
     ],
   },
 ];
@@ -107,6 +102,7 @@ const YOUSSEF_STEPS = [
   {
     id:1, type:"intro",
     title:"يوسف يتسوّق! 🛍️",
+    subtitle:"ساعد يوسف في حساب مشترياته",
     story:[
       {emoji:"👦", text:"يوسف وفّر مصروفه اليومي طوال العام"},
       {emoji:"🏦", text:"عند تكسير حصّالته وجد 520,500 مليم"},
@@ -188,9 +184,6 @@ const YOUSSEF_STEPS = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   SHARED STEP COMPONENTS
-───────────────────────────────────────────── */
 function MCQ({ step, onNext, onWrong }) {
   const [sel, setSel] = useState(null);
   const [done, setDone] = useState(false);
@@ -423,9 +416,6 @@ function FinishStep({ xp, hearts, summary }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   LESSON ENGINE
-───────────────────────────────────────────── */
 function Lesson({ steps, onBack }) {
   const [idx, setIdx] = useState(0);
   const [hearts, setHearts] = useState(3);
@@ -460,9 +450,7 @@ function Lesson({ steps, onBack }) {
           ))}
         </div>
       )}
-
       <div className="card">
-        {/* Top bar */}
         <div className="header">
           <button className="back-btn" onClick={onBack}>← رجوع</button>
           <div className="hearts">
@@ -473,7 +461,6 @@ function Lesson({ steps, onBack }) {
           <div className="xp-badge">⚡ {xp} XP</div>
         </div>
 
-        {/* Progress */}
         {step.type !== "intro" && step.type !== "finish" && (
           <div className="progress-wrap">
             <div className="progress-bar-row">
@@ -486,12 +473,8 @@ function Lesson({ steps, onBack }) {
           </div>
         )}
 
-        {/* Step title */}
-        {step.type !== "finish" && (
-          <h2 className="step-title">{step.title}</h2>
-        )}
+        {step.type !== "finish" && <h2 className="step-title">{step.title}</h2>}
 
-        {/* Screens */}
         {step.type === "intro" && (
           <div className="intro-center">
             <div className="intro-icon">{step.title.split(" ").pop()}</div>
@@ -523,16 +506,18 @@ function Lesson({ steps, onBack }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   HOME SCREEN
-───────────────────────────────────────────── */
 function Home({ onSelect }) {
   return (
     <div className="app">
       <div className="card home-card">
-        <div className="home-header">
-          
-  
+
+        {/* ── Banner header matching the screenshot style ── */}
+        <div className="home-banner">
+          <div className="banner-title">الجمع والطرح والضّرب</div>
+          <div className="banner-title">على الأعداد ذات 6 أرقام</div>
+          <div className="banner-divider"/>
+          <div className="banner-sub">مسايل حول الدرس</div>
+          <div className="banner-teacher">المعلم خليل عنيبة 👨‍🏫</div>
         </div>
 
         <div className="lesson-list">
@@ -557,15 +542,14 @@ function Home({ onSelect }) {
           </button>
         </div>
 
+        <div className="home-footer">
+          <span>⚡</span><span>تعلّم وافهم خطوة بخطوة</span>
+        </div>
       </div>
     </div>
   );
 }
 
-
-/* ─────────────────────────────────────────────
-   ROOT
-───────────────────────────────────────────── */
 export default function App() {
   const [screen, setScreen] = useState("home");
 
@@ -609,15 +593,49 @@ export default function App() {
           pointer-events: none;
         }
 
-        /* ── HOME ── */
+        /* ── HOME BANNER ── */
         .home-card { max-width: 420px; }
 
-        .home-header { text-align: center; margin-bottom: 28px; }
-        .home-icon   { font-size: 56px; margin-bottom: 6px; }
-        .home-title  { font-size: 24px; font-weight: 900; color: #3C3C3C; margin-bottom: 4px; }
-        .home-sub    { color: #AFAFAF; font-size: 13px; }
+        .home-banner {
+          background: linear-gradient(135deg, #1a237e, #283593);
+          border-radius: 16px;
+          padding: 20px 16px 16px;
+          text-align: center;
+          margin-bottom: 24px;
+          box-shadow: 0 4px 16px rgba(26,35,126,0.25);
+        }
 
-        .lesson-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+        .banner-title {
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: 900;
+          line-height: 1.5;
+          letter-spacing: 0.3px;
+        }
+
+        .banner-divider {
+          width: 50px;
+          height: 3px;
+          background: linear-gradient(90deg, #FFD700, #FF9600);
+          border-radius: 2px;
+          margin: 10px auto 10px;
+        }
+
+        .banner-sub {
+          color: #FFD700;
+          font-size: 14px;
+          font-weight: 800;
+          margin-bottom: 8px;
+        }
+
+        .banner-teacher {
+          color: #B3C5F0;
+          font-size: 13px;
+          font-weight: 700;
+        }
+
+        /* ── LESSON CARDS ── */
+        .lesson-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
 
         .lesson-card {
           display: flex;
@@ -631,18 +649,18 @@ export default function App() {
           text-align: right;
           transition: transform 0.15s, box-shadow 0.15s;
         }
-        .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.13); }
+        .lesson-card:hover  { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.13); }
         .lesson-card:active { transform: translateY(0); }
 
         .lc-orange { background: linear-gradient(135deg,#FFF3E0,#FFE0B2); border: 2px solid #FFB74D; box-shadow: 0 4px 0 #e65100aa; }
         .lc-purple { background: linear-gradient(135deg,#F3E5F5,#E1BEE7); border: 2px solid #CE93D8; box-shadow: 0 4px 0 #7b1fa2aa; }
 
-        .lc-emoji  { font-size: 36px; flex-shrink: 0; }
-        .lc-body   { flex: 1; }
-        .lc-tag    { font-size: 11px; font-weight: 800; color: #888; margin-bottom: 2px; letter-spacing: 0.5px; }
-        .lc-title  { font-size: 15px; font-weight: 900; color: #3C3C3C; margin-bottom: 2px; }
-        .lc-desc   { font-size: 11px; color: #AFAFAF; }
-        .lc-arrow  { font-size: 20px; color: #ccc; flex-shrink: 0; }
+        .lc-emoji { font-size: 36px; flex-shrink: 0; }
+        .lc-body  { flex: 1; }
+        .lc-tag   { font-size: 11px; font-weight: 800; color: #888; margin-bottom: 2px; letter-spacing: 0.5px; }
+        .lc-title { font-size: 15px; font-weight: 900; color: #3C3C3C; margin-bottom: 2px; }
+        .lc-desc  { font-size: 11px; color: #AFAFAF; }
+        .lc-arrow { font-size: 20px; color: #ccc; flex-shrink: 0; }
 
         .home-footer {
           text-align: center;
@@ -677,8 +695,8 @@ export default function App() {
         }
         .back-btn:hover { background: #D0EEFF; }
 
-        .hearts { display: flex; gap: 3px; }
-        .heart  { font-size: 20px; transition: opacity 0.3s; }
+        .hearts      { display: flex; gap: 3px; }
+        .heart       { font-size: 20px; transition: opacity 0.3s; }
         .heart.empty { opacity: 0.18; }
 
         .xp-badge {
@@ -693,12 +711,12 @@ export default function App() {
         }
 
         /* ── PROGRESS ── */
-        .progress-wrap { margin-bottom: 14px; }
+        .progress-wrap    { margin-bottom: 14px; }
         .progress-bar-row { display: flex; align-items: center; gap: 10px; }
-        .progress-track { flex:1; height:14px; background:#E5E5E5; border-radius:8px; overflow:hidden; }
-        .progress-fill  { height:100%; background:linear-gradient(90deg,#58CC02,#1CB0F6); border-radius:8px; transition:width 0.5s ease; }
-        .progress-pct   { color:#58CC02; font-weight:800; font-size:13px; min-width:32px; }
-        .step-label { display:inline-block; background:#F0F4FF; border-radius:8px; padding:2px 10px; font-size:11px; font-weight:700; color:#1CB0F6; margin-top:6px; }
+        .progress-track   { flex:1; height:14px; background:#E5E5E5; border-radius:8px; overflow:hidden; }
+        .progress-fill    { height:100%; background:linear-gradient(90deg,#58CC02,#1CB0F6); border-radius:8px; transition:width 0.5s ease; }
+        .progress-pct     { color:#58CC02; font-weight:800; font-size:13px; min-width:32px; }
+        .step-label       { display:inline-block; background:#F0F4FF; border-radius:8px; padding:2px 10px; font-size:11px; font-weight:700; color:#1CB0F6; margin-top:6px; }
 
         /* ── STEP ── */
         .step-title { font-size:17px; font-weight:900; color:#3C3C3C; margin-bottom:10px; }
@@ -723,29 +741,29 @@ export default function App() {
         .price-tag   { background:#FF9600; color:#fff; font-weight:800; border-radius:8px; padding:3px 10px; font-size:12px; white-space:nowrap; }
 
         /* ── TABLE ── */
-        .data-table { width:100%; border-collapse:collapse; font-size:12px; }
+        .data-table    { width:100%; border-collapse:collapse; font-size:12px; }
         .data-table th { background:#F0F4FF; color:#1CB0F6; font-weight:800; padding:8px 6px; text-align:center; border-bottom:2px solid #D0EEFF; }
         .data-table td { padding:8px 6px; text-align:center; border-bottom:1px solid #F0F0F0; color:#3C3C3C; font-weight:600; }
         .data-table tr:last-child td { border-bottom:none; }
-        .table-total { font-weight:900; color:#58CC02; }
+        .table-total   { font-weight:900; color:#58CC02; }
 
         /* ── MCQ ── */
         .question-text { font-size:14px; color:#555; margin-bottom:12px; line-height:1.6; }
-        .hint { background:#FFF3CD; border-radius:10px; padding:7px 12px; margin-bottom:12px; font-size:13px; color:#856404; font-weight:600; }
-        .visual-box  { display:flex; gap:6px; flex-wrap:wrap; background:#FFF8F0; border-radius:12px; padding:10px; margin-bottom:12px; border:2px dashed #FFD0A0; align-items:center; }
-        .visual-chip { background:#fff; border:2px solid #FFB347; border-radius:8px; padding:5px 10px; font-size:12px; font-weight:700; }
-        .visual-eq   { font-size:18px; font-weight:900; color:#FF9600; }
-        .options-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
-        .options-col  { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
-        .option-btn   { border:2px solid #E5E5E5; border-radius:12px; padding:11px 8px; background:#fff; cursor:pointer; font-family:inherit; font-size:13px; font-weight:700; transition:all 0.15s; text-align:center; color:#3C3C3C; }
-        .option-full  { width:100%; }
+        .hint          { background:#FFF3CD; border-radius:10px; padding:7px 12px; margin-bottom:12px; font-size:13px; color:#856404; font-weight:600; }
+        .visual-box    { display:flex; gap:6px; flex-wrap:wrap; background:#FFF8F0; border-radius:12px; padding:10px; margin-bottom:12px; border:2px dashed #FFD0A0; align-items:center; }
+        .visual-chip   { background:#fff; border:2px solid #FFB347; border-radius:8px; padding:5px 10px; font-size:12px; font-weight:700; }
+        .visual-eq     { font-size:18px; font-weight:900; color:#FF9600; }
+        .options-grid  { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+        .options-col   { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+        .option-btn    { border:2px solid #E5E5E5; border-radius:12px; padding:11px 8px; background:#fff; cursor:pointer; font-family:inherit; font-size:13px; font-weight:700; transition:all 0.15s; text-align:center; color:#3C3C3C; }
+        .option-full   { width:100%; }
         .option-btn:hover:not(.opt-correct):not(.opt-wrong):not(.opt-selected) { border-color:#1CB0F6; background:#EDF8FF; }
-        .opt-selected { border-color:#1CB0F6 !important; background:#EDF8FF !important; }
-        .opt-correct  { border-color:#58CC02 !important; background:#D7FFB8 !important; }
-        .opt-wrong    { border-color:#FF4B4B !important; background:#FFD0D0 !important; }
-        .feedback { border-radius:12px; padding:9px 12px; margin-bottom:10px; font-size:13px; font-weight:700; }
-        .fb-correct { background:#D7FFB8; border:2px solid #58CC02; color:#46A302; }
-        .fb-wrong   { background:#FFD0D0; border:2px solid #FF4B4B; color:#FF4B4B; }
+        .opt-selected  { border-color:#1CB0F6 !important; background:#EDF8FF !important; }
+        .opt-correct   { border-color:#58CC02 !important; background:#D7FFB8 !important; }
+        .opt-wrong     { border-color:#FF4B4B !important; background:#FFD0D0 !important; }
+        .feedback      { border-radius:12px; padding:9px 12px; margin-bottom:10px; font-size:13px; font-weight:700; }
+        .fb-correct    { background:#D7FFB8; border:2px solid #58CC02; color:#46A302; }
+        .fb-wrong      { background:#FFD0D0; border:2px solid #FF4B4B; color:#FF4B4B; }
 
         /* ── SUM TABLE ── */
         .sum-table     { background:#F8F0FF; border-radius:12px; padding:12px; margin-bottom:12px; border:2px solid #E0C8FF; }
@@ -769,11 +787,11 @@ export default function App() {
         .compare-total  .compare-unit   { font-size:10px; color:#FF4B4B; }
 
         /* ── BUTTONS ── */
-        .main-btn { width:100%; border:none; border-radius:14px; padding:13px 0; font-size:15px; font-weight:800; font-family:inherit; cursor:pointer; color:#fff; transition:transform 0.1s, box-shadow 0.1s; }
+        .main-btn        { width:100%; border:none; border-radius:14px; padding:13px 0; font-size:15px; font-weight:800; font-family:inherit; cursor:pointer; color:#fff; transition:transform 0.1s, box-shadow 0.1s; }
         .main-btn:active { transform:translateY(3px); box-shadow:none !important; }
-        .btn-green    { background:#58CC02; box-shadow:0 4px 0 #46A302; }
-        .btn-blue     { background:#1CB0F6; box-shadow:0 4px 0 #0b7ab5; }
-        .btn-disabled { background:#AFAFAF; cursor:not-allowed; }
+        .btn-green       { background:#58CC02; box-shadow:0 4px 0 #46A302; }
+        .btn-blue        { background:#1CB0F6; box-shadow:0 4px 0 #0b7ab5; }
+        .btn-disabled    { background:#AFAFAF; cursor:not-allowed; }
 
         /* ── FINISH ── */
         .finish-center { text-align:center; }
@@ -796,12 +814,12 @@ export default function App() {
         .confetti-piece { position:absolute; top:-20px; width:10px; height:10px; }
 
         /* ── ANIMATIONS ── */
-        @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
-        @keyframes fall0  { to{transform:translateY(110vh) rotate(360deg);opacity:0} }
-        @keyframes fall1  { to{transform:translateY(110vh) rotate(-720deg) translateX(40px);opacity:0} }
-        @keyframes fall2  { to{transform:translateY(110vh) rotate(540deg) translateX(-30px);opacity:0} }
-        @keyframes bounce { from{transform:translateY(0)} to{transform:translateY(-10px)} }
-        @keyframes starPop{ from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+        @keyframes fadeUp  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+        @keyframes fall0   { to{transform:translateY(110vh) rotate(360deg);opacity:0} }
+        @keyframes fall1   { to{transform:translateY(110vh) rotate(-720deg) translateX(40px);opacity:0} }
+        @keyframes fall2   { to{transform:translateY(110vh) rotate(540deg) translateX(-30px);opacity:0} }
+        @keyframes bounce  { from{transform:translateY(0)} to{transform:translateY(-10px)} }
+        @keyframes starPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
       `}</style>
 
       {screen === "home"    && <Home onSelect={setScreen}/>}
